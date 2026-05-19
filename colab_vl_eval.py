@@ -29,9 +29,9 @@ def parse_args():
     parser.add_argument("--image-dir", default=str(DEFAULT_IMAGE_DIR))
     parser.add_argument("--template-file", default=str(DEFAULT_TEMPLATE))
     parser.add_argument("--output", default="colab_eval_results.json")
-    parser.add_argument("--stage1-ids", default="1,3,6,8,11,18")
-    parser.add_argument("--top-k", type=int, default=2)
-    parser.add_argument("--max-new-tokens", type=int, default=16)
+    parser.add_argument("--stage1-ids", default="1,3,5,6,8,9,11,12,15,18")
+    parser.add_argument("--top-k", type=int, default=4)
+    parser.add_argument("--max-new-tokens", type=int, default=12)
     parser.add_argument("--limit", type=int, default=0)
     return parser.parse_args()
 
@@ -66,12 +66,34 @@ Options: {options}
 Think carefully about the quantities shown in the image, then output only the option letter.
 If multiple answers are correct, output the letters in alphabetical order with no spaces.""",
         ),
+        (
+            "chart_compare_all_options",
+            """You are solving a {type} question in {course} from a chart or graph.
+Read the image carefully, estimate the relevant values, and compare every option before choosing.
+Question: {question}
+Options: {options}
+Rules:
+1. Use the image, not world knowledge.
+2. If the values are approximate, choose the closest option after comparing all choices.
+3. For multi-select questions, test each option independently and return all correct letters in alphabetical order with no separators.
+4. Output only the final option letter or letters.""",
+        ),
+        (
+            "extract_then_answer",
+            """Solve this {type} question in {course} using the image.
+First identify the key numbers, ratios, or trends shown in the chart mentally.
+Then answer the question by matching the best option.
+Question: {question}
+Options: {options}
+Return only the option letter.
+If more than one option is correct, return the letters in alphabetical order with no spaces.""",
+        ),
     ]
 
 
 def build_search_grid(prompt_variants):
-    top_ps = [0.9, 1.0]
-    temperatures = [0.0, 0.1]
+    top_ps = [0.2, 0.5, 0.9, 1.0]
+    temperatures = [0.0, 0.05, 0.1]
     grid = []
     for prompt_name, prompt_template in prompt_variants:
         for top_p in top_ps:
