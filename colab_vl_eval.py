@@ -7,11 +7,6 @@ import statistics
 import time
 from pathlib import Path
 
-import torch
-from PIL import Image
-from transformers import AutoModelForImageTextToText, AutoProcessor
-
-
 ROOT = Path(__file__).resolve().parent
 DEFAULT_DATASET = ROOT / "英文数学图表" / "data.json"
 DEFAULT_IMAGE_DIR = ROOT / "英文数学图表" / "images"
@@ -148,6 +143,8 @@ def normalize_answer(text):
 
 
 def select_dtype():
+    import torch
+
     if not torch.cuda.is_available():
         return torch.float32
     if torch.cuda.is_bf16_supported():
@@ -156,6 +153,8 @@ def select_dtype():
 
 
 def load_model(model_id):
+    from transformers import AutoModelForImageTextToText, AutoProcessor
+
     dtype = select_dtype()
     model = AutoModelForImageTextToText.from_pretrained(
         model_id,
@@ -178,6 +177,9 @@ def move_to_device(batch, device):
 
 
 def run_inference(model, processor, image_path, prompt, top_p, temperature, max_new_tokens):
+    import torch
+    from PIL import Image
+
     image = Image.open(image_path).convert("RGB")
     messages = [
         {
@@ -283,8 +285,18 @@ def main():
     base_template = load_template(args.template_file)
     prompt_variants = build_prompt_variants(base_template)
     search_grid = build_search_grid(prompt_variants)
+    stage1_dataset_ids = [item["id"] for item in stage1_dataset]
 
     print(f"Loading model: {args.model_id}", flush=True)
+    print(
+        "Effective config: "
+        f"stage1_ids={sorted(stage1_ids)}, "
+        f"stage1_dataset_ids={stage1_dataset_ids}, "
+        f"top_k={args.top_k}, "
+        f"max_new_tokens={args.max_new_tokens}, "
+        f"search_grid={len(search_grid)}",
+        flush=True,
+    )
     model, processor = load_model(args.model_id)
 
     stage1_results = []
@@ -341,6 +353,16 @@ def main():
     full_results.sort(key=lambda x: (x["accuracy"], -x["avg_latency_sec"]), reverse=True)
     output = {
         "model_id": args.model_id,
+        "run_config": {
+            "stage1_ids_arg": args.stage1_ids,
+            "stage1_ids": sorted(stage1_ids),
+            "stage1_dataset_ids": stage1_dataset_ids,
+            "top_k": args.top_k,
+            "max_new_tokens": args.max_new_tokens,
+            "limit": args.limit,
+            "search_grid_count": len(search_grid),
+            "prompt_variant_names": [name for name, _ in prompt_variants],
+        },
         "dataset_json": str(Path(args.dataset_json).resolve()),
         "image_dir": str(Path(args.image_dir).resolve()),
         "stage1_results": stage1_results,
