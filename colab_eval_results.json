@@ -1,0 +1,1245 @@
+{
+  "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "dataset_json": "/content/prompt_test_repo/英文数学图表/data.json",
+  "image_dir": "/content/prompt_test_repo/英文数学图表/images",
+  "stage1_results": [
+    {
+      "prompt_name": "template_baseline",
+      "prompt_template": "Refer to the image and return the correct answer. The answer can only contain the option letter, and must not include explanations or the option content.\nComplex formulas in the question will be provided in LaTeX format.\nYou are an expert in {course}, please solve this {type} question.\nquestion: {question}\nOptions are: {options}\nOnly output the option.",
+      "top_p": 1.0,
+      "temperature": 0.0,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.21,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.18
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "D",
+          "raw": "D",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        }
+      ]
+    },
+    {
+      "prompt_name": "template_baseline",
+      "prompt_template": "Refer to the image and return the correct answer. The answer can only contain the option letter, and must not include explanations or the option content.\nComplex formulas in the question will be provided in LaTeX format.\nYou are an expert in {course}, please solve this {type} question.\nquestion: {question}\nOptions are: {options}\nOnly output the option.",
+      "top_p": 1.0,
+      "temperature": 0.1,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.21,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "D",
+          "raw": "D",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        }
+      ]
+    },
+    {
+      "prompt_name": "math_first_concise",
+      "prompt_template": "Use the image and the question to determine the correct answer.\nThis is a {type} in {course}.\nQuestion: {question}\nOptions: {options}\nThink carefully about the quantities shown in the image, then output only the option letter.\nIf multiple answers are correct, output the letters in alphabetical order with no spaces.",
+      "top_p": 0.9,
+      "temperature": 0.1,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.24,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "D",
+          "raw": "D",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "ABCD",
+          "raw": "A B C D",
+          "correct": false,
+          "latency_sec": 0.34
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        }
+      ]
+    },
+    {
+      "prompt_name": "strict_letter_only",
+      "prompt_template": "Answer the question using the image.\nYou are an expert in {course}.\nQuestion type: {type}\nQuestion: {question}\nOptions: {options}\nReturn only the correct option letter or letters in alphabetical order, such as A or ACD.\nDo not return words, punctuation, explanations, or option text.",
+      "top_p": 1.0,
+      "temperature": 0.0,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.26,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.18
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "ABCD",
+          "raw": "A, B, C, D",
+          "correct": false,
+          "latency_sec": 0.49
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        }
+      ]
+    },
+    {
+      "prompt_name": "strict_letter_only",
+      "prompt_template": "Answer the question using the image.\nYou are an expert in {course}.\nQuestion type: {type}\nQuestion: {question}\nOptions: {options}\nReturn only the correct option letter or letters in alphabetical order, such as A or ACD.\nDo not return words, punctuation, explanations, or option text.",
+      "top_p": 1.0,
+      "temperature": 0.1,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.26,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.18
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "ABCD",
+          "raw": "A, B, C, D",
+          "correct": false,
+          "latency_sec": 0.49
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        }
+      ]
+    },
+    {
+      "prompt_name": "math_first_concise",
+      "prompt_template": "Use the image and the question to determine the correct answer.\nThis is a {type} in {course}.\nQuestion: {question}\nOptions: {options}\nThink carefully about the quantities shown in the image, then output only the option letter.\nIf multiple answers are correct, output the letters in alphabetical order with no spaces.",
+      "top_p": 0.9,
+      "temperature": 0.0,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.26,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.18
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "ABCD",
+          "raw": "A B C D",
+          "correct": false,
+          "latency_sec": 0.36
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "ABCD",
+          "raw": "A B C D",
+          "correct": false,
+          "latency_sec": 0.34
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        }
+      ]
+    },
+    {
+      "prompt_name": "math_first_concise",
+      "prompt_template": "Use the image and the question to determine the correct answer.\nThis is a {type} in {course}.\nQuestion: {question}\nOptions: {options}\nThink carefully about the quantities shown in the image, then output only the option letter.\nIf multiple answers are correct, output the letters in alphabetical order with no spaces.",
+      "top_p": 1.0,
+      "temperature": 0.0,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.26,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.18
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "ABCD",
+          "raw": "A B C D",
+          "correct": false,
+          "latency_sec": 0.36
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "ABCD",
+          "raw": "A B C D",
+          "correct": false,
+          "latency_sec": 0.34
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        }
+      ]
+    },
+    {
+      "prompt_name": "strict_letter_only",
+      "prompt_template": "Answer the question using the image.\nYou are an expert in {course}.\nQuestion type: {type}\nQuestion: {question}\nOptions: {options}\nReturn only the correct option letter or letters in alphabetical order, such as A or ACD.\nDo not return words, punctuation, explanations, or option text.",
+      "top_p": 0.9,
+      "temperature": 0.0,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.27,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "ABCD",
+          "raw": "A, B, C, D",
+          "correct": false,
+          "latency_sec": 0.49
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.31
+        }
+      ]
+    },
+    {
+      "prompt_name": "math_first_concise",
+      "prompt_template": "Use the image and the question to determine the correct answer.\nThis is a {type} in {course}.\nQuestion: {question}\nOptions: {options}\nThink carefully about the quantities shown in the image, then output only the option letter.\nIf multiple answers are correct, output the letters in alphabetical order with no spaces.",
+      "top_p": 1.0,
+      "temperature": 0.1,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.27,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.18
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "ABCD",
+          "raw": "A B C D",
+          "correct": false,
+          "latency_sec": 0.37
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "ABCD",
+          "raw": "A B C D",
+          "correct": false,
+          "latency_sec": 0.34
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.31
+        }
+      ]
+    },
+    {
+      "prompt_name": "strict_letter_only",
+      "prompt_template": "Answer the question using the image.\nYou are an expert in {course}.\nQuestion type: {type}\nQuestion: {question}\nOptions: {options}\nReturn only the correct option letter or letters in alphabetical order, such as A or ACD.\nDo not return words, punctuation, explanations, or option text.",
+      "top_p": 0.9,
+      "temperature": 0.1,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.32,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "ABCD",
+          "raw": "A, B, C, D",
+          "correct": false,
+          "latency_sec": 0.52
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "ABCD",
+          "raw": "A, B, C, D",
+          "correct": false,
+          "latency_sec": 0.49
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.31
+        }
+      ]
+    },
+    {
+      "prompt_name": "template_baseline",
+      "prompt_template": "Refer to the image and return the correct answer. The answer can only contain the option letter, and must not include explanations or the option content.\nComplex formulas in the question will be provided in LaTeX format.\nYou are an expert in {course}, please solve this {type} question.\nquestion: {question}\nOptions are: {options}\nOnly output the option.",
+      "top_p": 0.9,
+      "temperature": 0.0,
+      "correct": 1,
+      "total": 6,
+      "accuracy": 0.16666666666666666,
+      "avg_latency_sec": 0.73,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 3.3
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "D",
+          "raw": "D",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.31
+        }
+      ]
+    },
+    {
+      "prompt_name": "template_baseline",
+      "prompt_template": "Refer to the image and return the correct answer. The answer can only contain the option letter, and must not include explanations or the option content.\nComplex formulas in the question will be provided in LaTeX format.\nYou are an expert in {course}, please solve this {type} question.\nquestion: {question}\nOptions are: {options}\nOnly output the option.",
+      "top_p": 0.9,
+      "temperature": 0.1,
+      "correct": 0,
+      "total": 6,
+      "accuracy": 0.0,
+      "avg_latency_sec": 0.25,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.38
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "D",
+          "raw": "D",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        }
+      ]
+    }
+  ],
+  "full_results": [
+    {
+      "prompt_name": "template_baseline",
+      "prompt_template": "Refer to the image and return the correct answer. The answer can only contain the option letter, and must not include explanations or the option content.\nComplex formulas in the question will be provided in LaTeX format.\nYou are an expert in {course}, please solve this {type} question.\nquestion: {question}\nOptions are: {options}\nOnly output the option.",
+      "top_p": 1.0,
+      "temperature": 0.1,
+      "correct": 7,
+      "total": 20,
+      "accuracy": 0.35,
+      "avg_latency_sec": 0.23,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.18
+        },
+        {
+          "id": 2,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.18
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 4,
+          "gold": "C",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 5,
+          "gold": "E",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 7,
+          "gold": "A",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "D",
+          "raw": "D",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 9,
+          "gold": "C",
+          "pred": "C",
+          "raw": "C",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 10,
+          "gold": "A",
+          "pred": "A",
+          "raw": "A",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 12,
+          "gold": "D",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.22
+        },
+        {
+          "id": 13,
+          "gold": "D",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.22
+        },
+        {
+          "id": 14,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.23
+        },
+        {
+          "id": 15,
+          "gold": "AD",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        },
+        {
+          "id": 16,
+          "gold": "D",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.27
+        },
+        {
+          "id": 17,
+          "gold": "C",
+          "pred": "C",
+          "raw": "C",
+          "correct": true,
+          "latency_sec": 0.27
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        },
+        {
+          "id": 19,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.31
+        },
+        {
+          "id": 20,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.3
+        }
+      ]
+    },
+    {
+      "prompt_name": "template_baseline",
+      "prompt_template": "Refer to the image and return the correct answer. The answer can only contain the option letter, and must not include explanations or the option content.\nComplex formulas in the question will be provided in LaTeX format.\nYou are an expert in {course}, please solve this {type} question.\nquestion: {question}\nOptions are: {options}\nOnly output the option.",
+      "top_p": 1.0,
+      "temperature": 0.0,
+      "correct": 7,
+      "total": 20,
+      "accuracy": 0.35,
+      "avg_latency_sec": 0.24,
+      "details": [
+        {
+          "id": 1,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 2,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 3,
+          "gold": "D",
+          "pred": "A",
+          "raw": "A",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 4,
+          "gold": "C",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 5,
+          "gold": "E",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 6,
+          "gold": "A",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 7,
+          "gold": "A",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.2
+        },
+        {
+          "id": 8,
+          "gold": "BC",
+          "pred": "D",
+          "raw": "D",
+          "correct": false,
+          "latency_sec": 0.21
+        },
+        {
+          "id": 9,
+          "gold": "C",
+          "pred": "C",
+          "raw": "C",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 10,
+          "gold": "A",
+          "pred": "A",
+          "raw": "A",
+          "correct": true,
+          "latency_sec": 0.19
+        },
+        {
+          "id": 11,
+          "gold": "ACD",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.4
+        },
+        {
+          "id": 12,
+          "gold": "D",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.23
+        },
+        {
+          "id": 13,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.22
+        },
+        {
+          "id": 14,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.24
+        },
+        {
+          "id": 15,
+          "gold": "AD",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.29
+        },
+        {
+          "id": 16,
+          "gold": "D",
+          "pred": "C",
+          "raw": "C",
+          "correct": false,
+          "latency_sec": 0.27
+        },
+        {
+          "id": 17,
+          "gold": "C",
+          "pred": "C",
+          "raw": "C",
+          "correct": true,
+          "latency_sec": 0.27
+        },
+        {
+          "id": 18,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        },
+        {
+          "id": 19,
+          "gold": "D",
+          "pred": "B",
+          "raw": "B",
+          "correct": false,
+          "latency_sec": 0.3
+        },
+        {
+          "id": 20,
+          "gold": "B",
+          "pred": "B",
+          "raw": "B",
+          "correct": true,
+          "latency_sec": 0.3
+        }
+      ]
+    }
+  ],
+  "best": {
+    "prompt_name": "template_baseline",
+    "prompt_template": "Refer to the image and return the correct answer. The answer can only contain the option letter, and must not include explanations or the option content.\nComplex formulas in the question will be provided in LaTeX format.\nYou are an expert in {course}, please solve this {type} question.\nquestion: {question}\nOptions are: {options}\nOnly output the option.",
+    "top_p": 1.0,
+    "temperature": 0.1,
+    "correct": 7,
+    "total": 20,
+    "accuracy": 0.35,
+    "avg_latency_sec": 0.23,
+    "details": [
+      {
+        "id": 1,
+        "gold": "B",
+        "pred": "B",
+        "raw": "B",
+        "correct": true,
+        "latency_sec": 0.18
+      },
+      {
+        "id": 2,
+        "gold": "B",
+        "pred": "B",
+        "raw": "B",
+        "correct": true,
+        "latency_sec": 0.18
+      },
+      {
+        "id": 3,
+        "gold": "D",
+        "pred": "A",
+        "raw": "A",
+        "correct": false,
+        "latency_sec": 0.2
+      },
+      {
+        "id": 4,
+        "gold": "C",
+        "pred": "B",
+        "raw": "B",
+        "correct": false,
+        "latency_sec": 0.2
+      },
+      {
+        "id": 5,
+        "gold": "E",
+        "pred": "C",
+        "raw": "C",
+        "correct": false,
+        "latency_sec": 0.2
+      },
+      {
+        "id": 6,
+        "gold": "A",
+        "pred": "B",
+        "raw": "B",
+        "correct": false,
+        "latency_sec": 0.19
+      },
+      {
+        "id": 7,
+        "gold": "A",
+        "pred": "C",
+        "raw": "C",
+        "correct": false,
+        "latency_sec": 0.2
+      },
+      {
+        "id": 8,
+        "gold": "BC",
+        "pred": "D",
+        "raw": "D",
+        "correct": false,
+        "latency_sec": 0.21
+      },
+      {
+        "id": 9,
+        "gold": "C",
+        "pred": "C",
+        "raw": "C",
+        "correct": true,
+        "latency_sec": 0.19
+      },
+      {
+        "id": 10,
+        "gold": "A",
+        "pred": "A",
+        "raw": "A",
+        "correct": true,
+        "latency_sec": 0.19
+      },
+      {
+        "id": 11,
+        "gold": "ACD",
+        "pred": "B",
+        "raw": "B",
+        "correct": false,
+        "latency_sec": 0.19
+      },
+      {
+        "id": 12,
+        "gold": "D",
+        "pred": "C",
+        "raw": "C",
+        "correct": false,
+        "latency_sec": 0.22
+      },
+      {
+        "id": 13,
+        "gold": "D",
+        "pred": "C",
+        "raw": "C",
+        "correct": false,
+        "latency_sec": 0.22
+      },
+      {
+        "id": 14,
+        "gold": "B",
+        "pred": "B",
+        "raw": "B",
+        "correct": true,
+        "latency_sec": 0.23
+      },
+      {
+        "id": 15,
+        "gold": "AD",
+        "pred": "B",
+        "raw": "B",
+        "correct": false,
+        "latency_sec": 0.3
+      },
+      {
+        "id": 16,
+        "gold": "D",
+        "pred": "C",
+        "raw": "C",
+        "correct": false,
+        "latency_sec": 0.27
+      },
+      {
+        "id": 17,
+        "gold": "C",
+        "pred": "C",
+        "raw": "C",
+        "correct": true,
+        "latency_sec": 0.27
+      },
+      {
+        "id": 18,
+        "gold": "D",
+        "pred": "B",
+        "raw": "B",
+        "correct": false,
+        "latency_sec": 0.3
+      },
+      {
+        "id": 19,
+        "gold": "D",
+        "pred": "B",
+        "raw": "B",
+        "correct": false,
+        "latency_sec": 0.31
+      },
+      {
+        "id": 20,
+        "gold": "B",
+        "pred": "B",
+        "raw": "B",
+        "correct": true,
+        "latency_sec": 0.3
+      }
+    ]
+  }
+}
