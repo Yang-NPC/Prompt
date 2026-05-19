@@ -17,8 +17,8 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model-id",
-        default="Qwen/Qwen2.5-VL-3B-Instruct",
-        help="Vision-language model, recommended within 1B-4B.",
+        default="Qwen/Qwen2.5-VL-72B-Instruct-AWQ",
+        help="Vision-language model to evaluate.",
     )
     parser.add_argument("--dataset-json", default=str(DEFAULT_DATASET))
     parser.add_argument("--image-dir", default=str(DEFAULT_IMAGE_DIR))
@@ -41,111 +41,121 @@ def load_template(template_file):
 
 def build_prompt_variants(base_template):
     return [
-        ("template_baseline", base_template),
         (
-            "chart_math_compare",
-            """You are an expert at GRE quantitative reasoning with charts.
-Use the image as the source of data. Read labels, axes, legends, units, and percentages carefully.
-Solve the question, then compare your computed or estimated result with every option.
-For approximate questions, choose the closest option, not simply the first plausible option.
-For multi-select questions, judge each option independently and return every correct letter in alphabetical order.
+            "中文_图表数值对齐",
+            """你是一名擅长 GRE 数学图表题的数据解读专家。
+请只依据图片中的信息作答，重点读取标题、坐标轴、图例、单位、年份、百分比、数值刻度和不同子图之间的关系。
+先在心里确定题目问的是哪个图、哪个年份、哪个类别或哪几个量；再根据图中读数进行必要计算；最后把计算结果和所有选项逐一比较。
+如果题目问“近似值”或“最接近哪一项”，请选择与计算结果最接近的选项，而不是看起来顺眼的选项。
+如果是多选题，请分别判断每个选项是否由图表必然推出，并按字母顺序输出所有正确选项。
 
-Question type: {type}
-Question: {question}
-Options: {options}
+课程：{course}
+题型：{type}
+问题：{question}
+选项：{options}
 
-Output only the option letter or letters, such as B or ACD. Do not output explanations.""",
+只输出最终选项字母，例如 B 或 ACD。不要解释，不要输出选项内容。""",
         ),
         (
-            "option_elimination",
-            """Answer this {course} {type} using the chart in the image.
-Mentally do these steps before answering:
-1. Identify exactly which graph, year, category, or group the question asks about.
-2. Extract the needed values from the image, including units and approximate values.
-3. Perform the required arithmetic: percent change, ratio, total, difference, average, or angle.
-4. Check all options against the result and eliminate options that do not match.
-5. If the question asks for all true statements, evaluate A, B, C, and D separately.
+            "中文_逐项排除",
+            """请根据图片解答这道 {course} 的 {type}。
+在给出答案前，请在心里完成以下步骤：
+1. 明确题目要求的对象，是年份、类别、比例、差值、总量、平均值、角度还是多个陈述判断。
+2. 从图片中读取相关数值，注意单位、刻度间隔、小数/百分数、以及图例颜色或阴影。
+3. 做对应运算：百分比变化、比例比较、求和、求差、平均、扇形角度或真假判断。
+4. 把结果与 A/B/C/D/E 每个选项比较，排除不匹配的选项。
+5. 多选题时不要只选一个看起来最像的选项，而是逐项判断所有选项。
 
-Question: {question}
-Options: {options}
+问题：{question}
+选项：{options}
 
-Final response must be only letters A-E, with no spaces, punctuation, or explanation.""",
+最终回答只能包含选项字母 A-E；多选时直接连写，如 BC 或 ACD。不要输出任何解释。""",
         ),
         (
-            "gre_chart_solver",
-            """You are solving a GRE math data interpretation problem.
-The image may contain bar graphs, pie charts, line charts, boxplots, or multiple related charts.
-Pay attention to titles, legends, axes, scales, years, and whether numbers are percentages or absolute amounts.
-Do not guess from option patterns. First infer the relevant chart values, then calculate.
-When two options are close, prefer the one closest to the calculated value.
-For multi-answer questions, select all and only the statements that must be true from the chart.
+            "中文_GRE数据分析",
+            """这是一道 GRE 数学数据分析题，图片可能包含柱状图、折线图、饼图、箱线图或多个相关图表。
+请优先理解图表本身：标题说明了总体对象，坐标轴说明了变量和单位，图例说明了类别，刻度决定了读数精度。
+不要根据选项分布猜答案。请先读图，再计算，再选择。
+如果两个选项接近，选择最接近计算值的那个。
+如果题目要求选择所有正确陈述，只选择从图表中一定为真的陈述。
 
-Question: {question}
-Options: {options}
-Question type: {type}
+题型：{type}
+问题：{question}
+选项：{options}
 
-Return only the final answer letter or letters.""",
+只返回最终答案字母。单选返回一个字母；多选返回多个字母且按字母顺序排列。""",
         ),
         (
-            "visual_data_first",
-            """Focus on the image first, then the question.
-Use the visual data to identify the relevant values, categories, and comparisons.
-After reading the question, decide what operation is needed:
-- percent increase/decrease: use (new - old) / old
-- ratio comparison: compare quotients, not raw differences
-- total or average: combine all relevant visible values
-- pie chart angle: use part / whole * 360
-- multi-select: test every statement separately
+            "中文_先读图后算题",
+            """先读图片，再读题目，再选择答案。
+请从图片中找到相关数值、类别、年份和比较对象，然后判断题目需要哪种运算：
+- 百分比增加或减少：使用（新值 - 旧值）/ 旧值
+- 比例比较：比较商，而不是只看差值
+- 总数或平均数：合并所有相关可见数值
+- 饼图角度：使用 部分 / 总体 * 360
+- 多选题：逐条检验每个陈述是否正确
 
-Course: {course}
-Type: {type}
-Question: {question}
-Options: {options}
+课程：{course}
+题型：{type}
+问题：{question}
+选项：{options}
 
-Only output the option letter or letters in alphabetical order.""",
+只输出按字母顺序排列的选项字母，不要解释。""",
         ),
         (
-            "multi_select_guard",
-            """Solve the problem from the image and options.
-Important: if this is a multi-select question, the correct answer may contain more than one letter.
-Do not choose a single letter for a multi-select question unless exactly one statement is true.
-Evaluate each option independently against the chart data.
-For single-choice questions, calculate the requested value and choose the closest matching option.
+            "中文_多选防漏选",
+            """请根据图片和选项解题。
+特别注意：如果题型是多选题，正确答案可能包含多个字母。除非确实只有一个陈述正确，否则不要只输出一个字母。
+多选题请将每个选项分别与图表数据核对，保留所有正确项，去掉所有错误项。
+单选题请根据图表读数和计算结果选择最接近的一个选项。
 
-Question type: {type}
-Question: {question}
-Options: {options}
+题型：{type}
+问题：{question}
+选项：{options}
 
-Return only the final letter string, for example A, D, BC, or ACD.""",
+答案格式只能是字母，例如 A、D、BC、ACD。不要解释。""",
         ),
         (
-            "chart_units_and_scale",
-            """Use the chart image to answer the {course} {type}.
-Before choosing, mentally verify:
-- the chart title and which sub-chart applies
-- axis scale and units
-- whether values are percents, dollars, counts, angles, or millions
-- whether the question asks for increase, decrease, less than, greater than, closest to, or all true statements
-- whether option values are written as decimals for percentages
+            "中文_单位刻度检查",
+            """请用图片中的图表回答这道 {course} {type}。
+选择前请在心里检查：
+- 题目对应的是哪一个图或哪一个子图
+- 坐标轴刻度和单位是什么
+- 图中数值是百分数、美元、人数、票数、角度、百万还是其他单位
+- 题目问的是增加、减少、少多少、多多少、最接近、比例相等，还是所有正确陈述
+- 选项中的百分比是否用小数表示，例如 0.36 表示 36%
 
-Question: {question}
-Options: {options}
+问题：{question}
+选项：{options}
 
-Select the option that best matches the image-based calculation.
-Output only the option letter or letters.""",
+请选择最符合图表计算结果的选项。只输出选项字母。""",
         ),
         (
-            "structured_private_reasoning",
-            """Privately solve this chart problem step by step, but do not show the steps.
-Read the image, identify the exact relevant data, calculate the requested quantity, compare with all options, and then provide only the answer.
-If the problem is multi-select, privately check each statement and output all true letters in alphabetical order.
+            "中文_隐式逐步推理",
+            """请在心里逐步解决这道图表题，但最终不要展示步骤。
+你需要先读图，找出题目所需的精确或近似数据；然后完成计算；再与所有选项比较；最后只给出答案。
+若为多选题，请在心里逐项检查所有陈述，并输出所有正确选项。
 
-Course: {course}
-Question type: {type}
-Question: {question}
-Options: {options}
+课程：{course}
+题型：{type}
+问题：{question}
+选项：{options}
 
-Answer format: only A, B, C, D, E, or a multi-letter string like BC or ACD.""",
+答案格式：只允许输出 A、B、C、D、E 或类似 BC、ACD 的多字母答案。""",
+        ),
+        (
+            "中文_强约束只输出",
+            """你正在解一道英文 GRE 数学图表题。题干和选项可能是英文，但请用图片中的图表数据进行中文思考。
+请不要被选项顺序诱导。先确定题目中的关键词含义，例如起止范围、增加或减少、比例、平均值、最接近哪一项、哪些陈述为真。
+然后读取图表对应数据并完成计算。
+如果答案是百分比，注意选项可能用小数表示百分比。
+如果答案是多个陈述，必须输出所有正确字母，不能漏选。
+
+题型：{type}
+问题：{question}
+选项：{options}
+
+最终只输出答案字母，不要输出中文、英文解释、标点或空格。""",
         ),
     ]
 
@@ -219,10 +229,9 @@ def select_dtype():
 def load_model(model_id):
     from transformers import AutoModelForImageTextToText, AutoProcessor
 
-    dtype = select_dtype()
     model = AutoModelForImageTextToText.from_pretrained(
         model_id,
-        torch_dtype=dtype,
+        torch_dtype="auto",
         device_map="auto",
         trust_remote_code=True,
     )
