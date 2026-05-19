@@ -25,7 +25,7 @@ def parse_args():
     parser.add_argument("--template-file", default=str(DEFAULT_TEMPLATE))
     parser.add_argument("--output", default="colab_eval_results.json")
     parser.add_argument("--stage1-ids", default="1,3,5,6,8,9,11,12,15,18")
-    parser.add_argument("--top-k", type=int, default=4)
+    parser.add_argument("--top-k", type=int, default=8)
     parser.add_argument("--max-new-tokens", type=int, default=12)
     parser.add_argument("--limit", type=int, default=0)
     return parser.parse_args()
@@ -43,52 +43,116 @@ def build_prompt_variants(base_template):
     return [
         ("template_baseline", base_template),
         (
-            "strict_letter_only",
-            """Answer the question using the image.
-You are an expert in {course}.
+            "chart_math_compare",
+            """You are an expert at GRE quantitative reasoning with charts.
+Use the image as the source of data. Read labels, axes, legends, units, and percentages carefully.
+Solve the question, then compare your computed or estimated result with every option.
+For approximate questions, choose the closest option, not simply the first plausible option.
+For multi-select questions, judge each option independently and return every correct letter in alphabetical order.
+
 Question type: {type}
 Question: {question}
 Options: {options}
-Return only the correct option letter or letters in alphabetical order, such as A or ACD.
-Do not return words, punctuation, explanations, or option text.""",
+
+Output only the option letter or letters, such as B or ACD. Do not output explanations.""",
         ),
         (
-            "math_first_concise",
-            """Use the image and the question to determine the correct answer.
-This is a {type} in {course}.
+            "option_elimination",
+            """Answer this {course} {type} using the chart in the image.
+Mentally do these steps before answering:
+1. Identify exactly which graph, year, category, or group the question asks about.
+2. Extract the needed values from the image, including units and approximate values.
+3. Perform the required arithmetic: percent change, ratio, total, difference, average, or angle.
+4. Check all options against the result and eliminate options that do not match.
+5. If the question asks for all true statements, evaluate A, B, C, and D separately.
+
 Question: {question}
 Options: {options}
-Think carefully about the quantities shown in the image, then output only the option letter.
-If multiple answers are correct, output the letters in alphabetical order with no spaces.""",
+
+Final response must be only letters A-E, with no spaces, punctuation, or explanation.""",
         ),
         (
-            "chart_compare_all_options",
-            """You are solving a {type} question in {course} from a chart or graph.
-Read the image carefully, estimate the relevant values, and compare every option before choosing.
+            "gre_chart_solver",
+            """You are solving a GRE math data interpretation problem.
+The image may contain bar graphs, pie charts, line charts, boxplots, or multiple related charts.
+Pay attention to titles, legends, axes, scales, years, and whether numbers are percentages or absolute amounts.
+Do not guess from option patterns. First infer the relevant chart values, then calculate.
+When two options are close, prefer the one closest to the calculated value.
+For multi-answer questions, select all and only the statements that must be true from the chart.
+
 Question: {question}
 Options: {options}
-Rules:
-1. Use the image, not world knowledge.
-2. If the values are approximate, choose the closest option after comparing all choices.
-3. For multi-select questions, test each option independently and return all correct letters in alphabetical order with no separators.
-4. Output only the final option letter or letters.""",
+Question type: {type}
+
+Return only the final answer letter or letters.""",
         ),
         (
-            "extract_then_answer",
-            """Solve this {type} question in {course} using the image.
-First identify the key numbers, ratios, or trends shown in the chart mentally.
-Then answer the question by matching the best option.
+            "visual_data_first",
+            """Focus on the image first, then the question.
+Use the visual data to identify the relevant values, categories, and comparisons.
+After reading the question, decide what operation is needed:
+- percent increase/decrease: use (new - old) / old
+- ratio comparison: compare quotients, not raw differences
+- total or average: combine all relevant visible values
+- pie chart angle: use part / whole * 360
+- multi-select: test every statement separately
+
+Course: {course}
+Type: {type}
 Question: {question}
 Options: {options}
-Return only the option letter.
-If more than one option is correct, return the letters in alphabetical order with no spaces.""",
+
+Only output the option letter or letters in alphabetical order.""",
+        ),
+        (
+            "multi_select_guard",
+            """Solve the problem from the image and options.
+Important: if this is a multi-select question, the correct answer may contain more than one letter.
+Do not choose a single letter for a multi-select question unless exactly one statement is true.
+Evaluate each option independently against the chart data.
+For single-choice questions, calculate the requested value and choose the closest matching option.
+
+Question type: {type}
+Question: {question}
+Options: {options}
+
+Return only the final letter string, for example A, D, BC, or ACD.""",
+        ),
+        (
+            "chart_units_and_scale",
+            """Use the chart image to answer the {course} {type}.
+Before choosing, mentally verify:
+- the chart title and which sub-chart applies
+- axis scale and units
+- whether values are percents, dollars, counts, angles, or millions
+- whether the question asks for increase, decrease, less than, greater than, closest to, or all true statements
+- whether option values are written as decimals for percentages
+
+Question: {question}
+Options: {options}
+
+Select the option that best matches the image-based calculation.
+Output only the option letter or letters.""",
+        ),
+        (
+            "structured_private_reasoning",
+            """Privately solve this chart problem step by step, but do not show the steps.
+Read the image, identify the exact relevant data, calculate the requested quantity, compare with all options, and then provide only the answer.
+If the problem is multi-select, privately check each statement and output all true letters in alphabetical order.
+
+Course: {course}
+Question type: {type}
+Question: {question}
+Options: {options}
+
+Answer format: only A, B, C, D, E, or a multi-letter string like BC or ACD.""",
         ),
     ]
 
 
 def build_search_grid(prompt_variants):
-    top_ps = [0.2, 0.5, 0.9, 1.0]
-    temperatures = [0.0, 0.05, 0.1]
+    top_ps = [0.5]
+    temperatures = [0.05]
     grid = []
     for prompt_name, prompt_template in prompt_variants:
         for top_p in top_ps:
