@@ -1,0 +1,8 @@
+prompt_template: "Refer to the image and return the correct answer. The answer can only contain the option letter, and must not include explanations or the option content.
+Complex formulas in the question will be provided in LaTeX format.
+You are an expert in {course}, please solve this {type} question.
+question: {question}
+Options are: {options}
+Only output the option."
+top_p: 1
+temperature: 0

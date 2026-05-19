@@ -1,0 +1,302 @@
+[
+    {
+        "id":1,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"In 2005, 80% of the Central City School Districts total expenditures came from local property taxes, and the rest came from the state government`s Aid to Schools Program. If the state had reduced its aid to the district by 50%, by what percentage would local property taxes have had to be increased in order for the district to maintain the same level of expenditures?",
+        "image":"1.png",
+        "answer":"B",
+        "options":{
+            "A":0.1,
+            "B":0.125,
+            "C":0.2,
+            "D":0.5
+        }
+    },
+    {
+        "id":2,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"From the graphs, it can be inferred that the number of students in the Central City School district in 1990 was closest to which of the following:",
+        "image":"1.png",
+        "answer":"B",
+        "options":{
+            "A":2000,
+            "B":2500,
+            "C":3000,
+            "D":3500
+        }
+    },
+    {
+        "id":3,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"The revenue from lottery ticket sales is divided between prize money and the various uses shown in the graph labeled \"Proceeds.\" In 2009, what percent of the money spent on tickets was returned to the purchasers in the form of prize money?",
+        "image":"3.png",
+        "answer":"D",
+        "options":{
+            "A":0.235,
+            "B":0.5,
+            "C":0.6,
+            "D":0.66
+        }
+    },
+    {
+        "id":4,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"Approximately what percent of the proceeds that went to the states` General fund would have to be given to the Senior citizen program so that the proceeds for the Senior citizen program and the Cities would be equal?",
+        "image":"3.png",
+        "answer":"C",
+        "options":{
+            "A":0.009,
+            "B":0.09,
+            "C":0.31,
+            "D":0.48
+        }
+    },
+    {
+        "id":5,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"Assume that in 2010, the sales of Lotto were discontinued, and the dollar value of the sales of all other games increased by 10% compared to 2009. If a new circle graph were created to reflect Lottery Ticket Sales in 2010, which of the following would be the degree measure of the central angle of the sector representing Instant games?",
+        "image":"3.png",
+        "answer":"E",
+        "options":{
+            "A":"100°",
+            "B":"130°",
+            "C":"150°",
+            "D":"180°"
+        }
+    },
+    {
+        "id":6,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"In how many years from 2001 through 2008, inclusive, did the sales of ABC Mega Stores exceed the average of the annual sales during that period?",
+        "image":"6.png",
+        "answer":"A",
+        "options":{
+            "A":3,
+            "B":4,
+            "C":5,
+            "D":6
+        }
+    },
+    {
+        "id":7,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"If the retail sales of ABC Mega Stores were 20% higher in 2009 than in 2008 and if in 2009 Kitchen Appliances accounted for 30% of the total sales, then the sales of Kitchen Appliances in 2009 were how much less than the sales of Kitchen Appliances in 2008?",
+        "image":"6.png",
+        "answer":"A",
+        "options":{
+            "A":400000,
+            "B":600000,
+            "C":800000,
+            "D":1000000
+        }
+    },
+    {
+        "id":8,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"多选题",
+        "question":"In 2010 the total sales of ABC Mega Stores were exactly the same as in 2008. However, compared with 2008, in 2010 sales of Kitchen Appliances and TVs were each up by 5% and sales of Computers decreased by 10%. Which of the following statements must be true?\nIndicate all such statements.",
+        "image":"6.png",
+        "answer":"BC",
+        "options":{
+            "A":"In 2010, the sales of TVs were greater than the sales of computers.",
+            "B":"In 2010, the sales of Miscellaneous items was less than in 2008.",
+            "C":"In 2010, the ratio of the sales of Kitchen Appliances to the sales of TVs was the same as it had been in 2008.",
+            "D":"If in 2010, 2/3 of the computers sold were laptops and 1/3 of them were desktops, then the sales of laptops were twice the sales of desktops."
+        }
+    },
+    {
+        "id":9,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"In which of the following pairs of years were the ratios of Republican receipts to Democratic receipts most nearly equal?",
+        "image":"9.png",
+        "answer":"C",
+        "options":{
+            "A":"1981-82 and 1985-86",
+            "B":"1983-84 and 1995-96",
+            "C":"1987-88 and 1989-90",
+            "D":"1987-88 and 1995-96"
+        }
+    },
+    {
+        "id":10,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"Between which two consecutive two-year periods was there the greatest percent increase in the Democratic receipts?",
+        "image":"9.png",
+        "answer":"A",
+        "options":{
+            "A":"1981-82 and 1983-84",
+            "B":"1985-86 and 1987-88",
+            "C":"1989-90 and 1991-92",
+            "D":"1991-92 and 1993-94"
+        }
+    },
+    {
+        "id":11,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"多选题",
+        "question":"Based on the data presented in the bar graph, which of the following statements are true? Indicate all such statements.",
+        "image":"9.png",
+        "answer":"ACD",
+        "options":{
+            "A":"From 1981-1996, inclusive, Republican receipts were more than 2 billion dollars.",
+            "B":"The ratio of Republican receipts to Democratic receipts was greater than 2:1 in more than half of the two-year periods covered in the graph.",
+            "C":"Republican receipts in 1995-1996 exceeded the total of Democratic receipts for the 10 years from 1981-1990.",
+            "D":"The two-year period in which the ratio of Republican receipts to Democratic receipts was the greatest was 1981-1982."
+        }
+    },
+    {
+        "id":12,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"What was the approximate percent increase in the number of Magazine X's readers in the 3140 age group from May 2010 to July 2010?",
+        "image":"12.png",
+        "answer":"D",
+        "options":{
+            "A":0.03,
+            "B":0.15,
+            "C":0.18,
+            "D":0.36
+        }
+    },
+    {
+        "id":13,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"From May to July, approximately what percent of the increase in the total number of readers of Magazine X was the increase in the number of readers in the 31^40 age group?",
+        "image":"12.png",
+        "answer":"D",
+        "options":{
+            "A":0.03,
+            "B":0.15,
+            "C":0.18,
+            "D":0.36
+        }
+    },
+    {
+        "id":14,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"The goal of Magazine Xs distribution manager is to increase circulation 10% based on the July 2010 figures.If she is able to accomplish that goal and the percent breakdown of readers remains the same, how many new readers would be expected in the largest group of readers?",
+        "image":"12.png",
+        "answer":"B",
+        "options":{
+            "A":110,
+            "B":1200,
+            "C":2600,
+            "D":4800
+        }
+    },
+    {
+        "id":15,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"多选题",
+        "question":"Based on the figure, which statements are true?\nChoose all that apply",
+        "image":"15.png",
+        "answer":"AD",
+        "options":{
+            "A":"The median value of the popular vote for Clinton was less than the median value of the popular vote for Bush.",
+            "B":"The range of the popular vote for Bush was greater than the range of the popular vote for Clinton.",
+            "C":"The percent of the popular vote received by Bush in each state was less than the percent received by Clinton in each state.",
+            "D":"The popular vote received by Perot in each state was at least half of the popular vote received by Bush in each state."
+        }
+    },
+    {
+        "id":16,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"What is the best estimate of the total number of popular votes received by Bush for the states in which he collected their electoral votes?",
+        "image":"15.png",
+        "answer":"D",
+        "options":{
+            "A":"2.5 million",
+            "B":"2.0 million",
+            "C":"1.5 million",
+            "D":"1.0 million"
+        }
+    },
+    {
+        "id":17,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"In the five states listed, approximately what percent of the electoral votes in 1992 were received by Clinton?",
+        "image":"15.png",
+        "answer":"C",
+        "options":{
+            "A":0.07,
+            "B":0.25,
+            "C":0.29,
+            "D":0.32
+        }
+    },
+    {
+        "id":18,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"Approximately what was the percent decrease in total costs from 2007 to 2008?",
+        "image":"18.png",
+        "answer":"D",
+        "options":{
+            "A":0.05,
+            "B":0.08,
+            "C":0.11,
+            "D":0.18
+        }
+    },
+    {
+        "id":19,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"What was the largest gross profit of each of the years from 2006 to 2009?",
+        "image":"18.png",
+        "answer":"D",
+        "options":{
+            "A":5000,
+            "B":10000,
+            "C":15000,
+            "D":20000
+        }
+    },
+    {
+        "id":20,
+        "course":"GRE数学",
+        "grade":"GRE",
+        "type":"单选题",
+        "question":"What was the percent increase in total revenue from 2008 to 2009?",
+        "image":"18.png",
+        "answer":"B",
+        "options":{
+            "A":0.05,
+            "B":0.1,
+            "C":0.5,
+            "D":0.55
+        }
+    }
+]
